@@ -393,4 +393,4 @@ GROUP BY f.fuc_nome;_
 
 ![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/16125ba5-65bc-4eb5-83a8-d2755faca43e)
 
-details>
+</details>
