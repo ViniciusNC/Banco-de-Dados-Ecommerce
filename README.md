@@ -91,3 +91,183 @@ O modelo lógico em bancos de dados é como o plano detalhado para construir o s
 
 
 </details>
+
+
+# **HORA DO SQL (CRUD):**
+
+<details>
+
+Agora que entendemos as principais entidades da nossa loja, é hora de dar vida a essa história no mundo dos bancos de dados utilizando a linguagem SQL, usaremos o SQL SERVER, bastante usado no mercado, gratuito e de fácil acesso e entendimento 
+
+**Passo 1:**
+
+Criação do Banco de Dados: 
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/88a93e81-0295-489f-8356-aaad24f9555d)
+
+Utilizamos o CREATE para criar o banco de dados, que nomeamos de ecommerce e logo após utilizamos o USE para estar utilizando ele.
+
+
+**Passo 1.1:**
+
+Criação das entidades, ou melhor, criação das nossas tabelas, conseguimos entender a importância de cada entidade extrair seus dados, criamos o MER e DER e agora se baseando neles iremos criar nossas tabelas referentes as entidades:
+
+**Cliente:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/938c6a3b-d04e-479d-840a-835bcc7daea3)
+
+Agora como dito lá em cima, espero que esteja lembrando, os atributos multivalorados como o E-mail e Telefone, viraram uma nova tabela cada um, segue a criação deles, afinal temos que ter o contato dos nossos clientes:
+
+**Telefone e E-mail:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/d6340d55-fbd2-45a1-963b-ab750a1e0298)
+
+Perceba que utilizamos a palavra reservada FOREIGN KEY que se traduz como chave estrangeira, afinal estamos pegando uma chave de outra tabela, no caso a tabela Cliente.
+
+**Funcionários:**
+
+Na criação desta tabela recebi uma dica de um amigo que na nomeação é melhor utilizarmos algo que deixe mais fácil a identificação da coluna e tabela, então usaremos tab(tabela)_(3 inicias que se referem a tabela)_(nome da tabela), tab_fuc_funcionarios, ficando assim nosso Create:
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/0501083d-d49c-4966-ba0d-87ec90187d99)
+
+Também podemos observar que diferente da tabela Cliente, que a coluna cod_cliente deve ser preenchida manualmente, a tabela funcionários colocamos a IDENTITY (50, 1) indicando que esta coluna será preenchida automaticamente, começando a partir do número 50 indo de 1 em 1. 
+
+**Produto:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/e2584f36-4a2b-472d-b491-8a86d8a15f50)
+
+**Estoque:**
+
+Na criação da tabela Estoque, como foi nos foi pedido no enunciado os funcionários tem a função de cadastrar o produto, por isso coloquei o fuc_id na tabela, para que possamos referenciar e verificar quem cadastrou o produto.
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/82ed08e4-1650-4e6e-a0be-6e27320746e6)
+
+**Atendimento:**
+
+E por último e não menos importante a tabela de atendimento que ajudará a identificar funcionário atendeu qual cliente e com algumas consultas verificar se o mesmo ajudou em alguma venda, podendo assim ganhar alguma comissão referente a venda. 
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/2fc32726-c7f4-47ed-95a1-848ee7f14945)
+
+Terminado a criação das tabelas, caso tenha alguma alteração que deseje fazer no banco de dados segue algumas opções:
+
+**Utilizando Alter:**
+
+Por exemplo desejamos alterar o tamanho máximo do nome que o cliente pode colocar vamos utilizar o seguinte código: 
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/84a0d185-4bd8-4273-b51f-b522d8b6136f)
+
+O ALTER TABLE utilizamos para mostrar qualquer tabela desejamos alterar, logo em seguida usamos o ALTER COLUMN para selecionar a coluna que será alterada, no caso ‘nome’ e então colocamos o atributo que será alterado.
+
+**Utilizando DROP:**
+
+ Muito **_CUIDADO_**   com a seguinte opção você consegue apagar até mesmo o próprio banco de dados, lembre-se que o SQL não vai te perguntar se você realmente deseja fazer isso, ele te considera uma pessoa grandinha e confia em você, segue o código para deletar uma tabela
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/ad45a0b9-dce3-4b11-bf5d-aebf1f5c9dce)
+
+Bom essa são algumas opções, lembre-se que isso é apenas um resumo então não se esqueça de estudar! Recomendo que faça as alterações antes de inserir dados, pois pode lhe causar complicações caso tenha muitas tabelas para serem alteradas, então sem mais delongas vamos para o próximo passo. 
+
+
+</details>
+
+# **Inserção de Dados**
+
+<details>
+
+Esta é parte mais tranquila, porém devemos ter muita atenção pois caso seja inserido algum dado errado pode comprometer nossas análises futuras, então cuidado ok?
+
+**Clientes:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/3f32cf61-126f-456b-87b7-4e3c48ab2ee6)
+ 
+Utilizamos o INSERT INTO, para inserir os dados na tabela que desejamos, bem fácil não é mesmo?
+
+**Telefone:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/bdc255d8-97aa-4850-b08f-5c3d7ad09593)
+
+**Email:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/ef67d2dd-b789-440a-9f79-18bb2b043df3)
+
+Vamos dar uma olhadinha em como ficou nossa tabela? Para isso vamos utilizar o seguinte comando ‘select * from cliente’
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/c509d24c-17e9-4443-84de-ac6be0dfb6e4)
+
+Show de bolice 🐼, como diria nosso amigo panda, mas seguimos, pois, estamos quase no final.
+
+**Funcionários:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/5175ed93-7e42-4d24-89b7-30218c5266f7)
+
+**Produtos:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/b781efb4-597a-491d-8ee9-4c8756eac353)
+
+**Estoque:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/ac0631ad-251c-4ecd-ab34-ca713c95bf02)
+
+**Compra:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/3665d88b-ba53-4bde-b0d5-bccfab4a5725)
+
+**Atendimento:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/c3eaddea-f30a-4ef4-b031-28f24e40ee28)
+
+E pronto, nosso banco de dados está pronto, porém ainda não acabamos, vamos fazer algumas consultas para que possamos verificar se tudo ficou certinho, vamos repetir aquele fizemos para ver os clientes que foram cadastrados, porém com as outras tabelas.
+
+</details>
+
+# Hora da seleção e consulta:
+
+<details>
+
+**Funcionários:**
+
+**Código:** _‘select * from tb_fuc_funcionarios‘_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/7e136e50-660b-4bb1-9e1b-dde0e329752e)
+
+**Produtos:**
+
+**Código:** _‘select * from tb_prod_produto‘_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/71452519-6afa-457f-a63f-5f83e466bb4d)
+
+Eitaa, acabamos cadastrando bastante produtos.	
+
+**Estoque:**
+
+**Código:** _‘select * from tb_est_estoque‘_
+
+**Resultado**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/8e753373-b0a6-4403-b01a-88f1b392bd15)
+
+**Compra:**
+
+**Código:** _‘select * from tb_cop_compra‘_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/cfc67174-68ba-4a3f-a36f-ab6f79d8df2c)
+
+**Atendimento:**
+
+**Código:** _‘select * from tb_ate_atendimento‘_
+
+
+</details>
+
+
+
+
+
+
+
+
