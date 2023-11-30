@@ -1,4 +1,4 @@
-# Banco-de-Dados-Ecommerce
+# Banco-de-Dados-Ecommerce 🛍
 Criando um Banco de Dados para uma loja Eommerce, partindo do zero até a implementação no SQL.
 
 # **Cenário**
@@ -169,7 +169,7 @@ Bom essa são algumas opções, lembre-se que isso é apenas um resumo então n�
 
 </details>
 
-# **Inserção de Dados**
+# **Inserção de Dados** ✍️
 
 <details>
 
@@ -219,7 +219,7 @@ E pronto, nosso banco de dados está pronto, porém ainda não acabamos, vamos f
 
 </details>
 
-# Hora da seleção e consulta:
+# Hora da seleção e consulta 🔎: 
 
 <details>
 
@@ -261,13 +261,136 @@ Eitaa, acabamos cadastrando bastante produtos.
 
 **Código:** _‘select * from tb_ate_atendimento‘_
 
+**Resultado**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/a524884e-1f9a-4005-8974-b55476a752ba)
+
+Prontinho meus queridos, banco de dados finalizado, MER e DER criado, banco de dados criados, dados inseridos, agora é só pegar e analisar o que você deseja. Neste final irei fazer algumas consultas de nível intermediário para mostrar quanta coisa é possível, desde já agradeço a atenção 
 
 </details>
 
+# Relatórios 📊
+
+<details>
 
 
+**1.	Selecionando todos os clientes e seus e-mails:**
+**Código:**
 
+_SELECT c.nome, e.email
+FROM cliente c
+LEFT JOIN email e ON c.cod_cliente = e.cod_cliente;_
 
+**Resultado**
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/824bfec2-d8c8-4566-8268-9093dc363b96)
 
+**2.	Selecionando produtos e sua quantidade total:**
 
+**Código:**
+_SELECT p.prod_nome, e.est_quantidade
+FROM tb_prod_produto p
+INNER JOIN tb_est_estoque e ON p.prod_id = e.prod_id;_
 
+**Resultado**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/f4412608-430a-4761-9cbf-4a2f0f24fa1e)
+
+**3.	Selecionando os clientes que fizeram compra, mostrando o nome e a data da compra:**
+
+**Código**
+_SELECT c.nome, c.cod_cliente, a.datatendimento
+FROM cliente INNER JOIN tb_ate_atendimento a ON c.cod_cliente a.cod_cliente;_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/903c171e-bf37-49c2-8c68-8edc61771200)
+
+**4.	Calculando média salarial dos funcionários:**
+
+**Código:**
+
+_SELECT AVG(fuc_salario) AS media_salarial
+FROM tb_fuc_funcionarios;_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/5b71b924-5205-471d-9786-f013a160ee8b)
+
+**5.	Listando os produtos com seu preço de venda e quantidade em estoque:**
+
+**Código:**
+
+_SELECT p.prod_nome, p.prod_precoDeVenda, e.est_quantidade
+FROM tb_prod_produto p
+INNER JOIN tb_est_estoque e ON p.prod_id = e.prod_id;_
+
+**Resultado**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/43e48037-a8f4-4325-bd47-8d0d3ef73310)
+
+**6.	Listando os clientes e seus números de telefones:**
+
+**Código**
+
+_SELECT c.nome, t.numero
+FROM cliente c
+LEFT JOIN telefone t ON c.cod_cliente = t.cod_cliente;_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/068a0b74-f805-46de-ade9-ed9a1fe28135)
+
+**7.	Obtendo as informações de atendimento para um cliente específico (por exemplo, cod_cliente = 1):**
+
+**Código:**
+
+_SELECT a.ate_id, a.datatendimento, f.fuc_nome
+FROM tb_ate_atendimento a
+INNER JOIN tb_fuc_funcionarios f ON a.fuc_id = f.fuc_id
+WHERE a.cod_cliente = 1;_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/fdb95bb8-727d-495d-88a6-97e347ba0755)
+
+**8.	Encontrando o total gasto por cada cliente em todas as compras::**
+
+**Código:**
+
+_SELECT c.nome, SUM(p.prod_precoDeVenda) AS total_gasto
+FROM cliente c
+INNER JOIN tb_ate_atendimento a ON c.cod_cliente = a.cod_cliente
+INNER JOIN tb_cop_compra co ON a.ate_id = co.ate_id
+INNER JOIN tb_prod_produto p ON co.prod_id = p.prod_id
+GROUP BY c.nome;_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/d34513ab-366f-4bb6-b7e7-591df2607d19)
+
+**9.	Listando todos os produtos e suas informações de estoque, incluindo os que não têm entrada no estoque:**
+
+**Código:**
+
+_SELECT p.prod_nome, COALESCE(e.est_quantidade, 0) AS quantidade_em_estoque
+FROM tb_prod_produto p
+LEFT JOIN tb_est_estoque e ON p.prod_id = e.prod_id;_
+
+**Resultado:**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/5f56f808-b302-4f32-a46d-82dc8f2303b1)
+
+**10.	Encontrando o número de produtos em estoque para cada funcionário responsável:**
+
+**Código**
+
+_SELECT f.fuc_nome, COUNT(e.prod_id) AS num_produtos_em_estoque
+FROM tb_fuc_funcionarios f
+LEFT JOIN tb_est_estoque e ON f.fuc_id = e.fuc_id
+GROUP BY f.fuc_nome;_
+
+**Resultado**
+
+![image](https://github.com/ViniciusNC/Banco-de-Dados-Ecommerce/assets/100096038/16125ba5-65bc-4eb5-83a8-d2755faca43e)
+
+details>
